@@ -220,6 +220,7 @@ window.onload = function() {
 		}
 		console.log(nodes);
 		console.log(links);
+		table();
 	};
 
 	canvas.onmousemove = function(e) {
