@@ -5,6 +5,8 @@ function Node(x, y) {
 	this.mouseOffsetY = 0;
 	this.isAcceptState = false;
 	this.text = '';
+	this.selfLink = null;
+	this.link = null;
 }
 
 Node.prototype.setMouseStart = function(x, y) {

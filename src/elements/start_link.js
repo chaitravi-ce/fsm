@@ -3,6 +3,7 @@ function StartLink(node, start) {
 	this.deltaX = 0;
 	this.deltaY = 0;
 	this.text = '';
+	this.startNode = null;
 
 	if(start) {
 		this.setAnchorPoint(start.x, start.y);
@@ -45,11 +46,31 @@ StartLink.prototype.draw = function(c) {
 
 	// draw the text at the end without the arrow
 	var textAngle = Math.atan2(stuff.startY - stuff.endY, stuff.startX - stuff.endX);
-	drawText(c, this.text, stuff.startX, stuff.startY, textAngle, selectedObject == this);
+	drawText(c, this.text, stuff.startX-stuff.endX, stuff.startY-stuff.endY, textAngle, selectedObject == this);
 
 	// draw the head of the arrow
 	drawArrow(c, stuff.endX, stuff.endY, Math.atan2(-this.deltaY, -this.deltaX));
+	len = nodes.length;
+	ndist = 1000;
+	node = '';
+	for(i=0;i<len;i++){
+		x=nodes[i].x;
+		y=nodes[i].y;
+		d = this.getDist(x,y,stuff.startX,stuff.startY);
+		if(d<=ndist){
+			ndist = d;
+			node = nodes[i];
+		}
+	}
+	this.startNode = node;
 };
+
+StartLink.prototype.getDist = function(x1,y1,x2,y2){
+	xn = x2-x1;
+	yn = y2-y1;
+	dist = Math.sqrt(xn*xn + yn*yn);
+	return dist;
+}
 
 StartLink.prototype.containsPoint = function(x, y) {
 	var stuff = this.getEndPoints();

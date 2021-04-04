@@ -169,10 +169,14 @@ window.onload = function() {
 		selectedObject = selectObject(mouse.x, mouse.y);
 		movingObject = false;
 		originalClick = mouse;
+		console.log(selectedObject);
 
 		if(selectedObject != null) {
 			if(shift && selectedObject instanceof Node) {
 				currentLink = new SelfLink(selectedObject, mouse);
+				console.log("Node");
+				console.log(Node);
+				console.log(nodes);
 			} else {
 				movingObject = true;
 				deltaMouseX = deltaMouseY = 0;
@@ -183,6 +187,10 @@ window.onload = function() {
 			resetCaret();
 		} else if(shift) {
 			currentLink = new TemporaryLink(mouse, mouse);
+			console.log("Link");
+			console.log(currentLink.nodeA);
+			console.log(currentLink.nodeB);
+			console.log(TemporaryLink);
 		}
 
 		draw();
@@ -210,6 +218,8 @@ window.onload = function() {
 			selectedObject.isAcceptState = !selectedObject.isAcceptState;
 			draw();
 		}
+		console.log(nodes);
+		console.log(links);
 	};
 
 	canvas.onmousemove = function(e) {
